@@ -1,0 +1,16 @@
+
+
+
+
+
+05 May 2024
+
+created entities for the clients and providers
+
+I created controller, service, repository
+
+fixed errores when mapping enpoints for clients and providers
+
+corrected table name defined for provider entity in the model class.
+
+Tested Get method for the endpoint /providers and /clients
