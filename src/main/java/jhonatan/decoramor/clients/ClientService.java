@@ -23,11 +23,20 @@ public class ClientService {
     }
 
     public List<ClientModel> getAllClients() {
-        
-          try {
-           return clientRepository.findAll();
+
+        try {
+            return clientRepository.findAll();
         } catch (Exception e) {
             throw new RuntimeException("Error al buscar los clientes: " + e.getMessage());
+        }
+    }
+// save a new client in the database
+    public ClientModel CreateClient(ClientModel client) {
+        try {
+            return clientRepository.save(client);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al intentar crear el nueco cliente. " + e.getMessage());
         }
     }
 }

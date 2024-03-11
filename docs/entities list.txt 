@@ -1,0 +1,125 @@
+ 
+ 
+ Client: {
+        client_id
+        dni
+        phone
+        "first_name": "",
+        "secund_name": "",
+        "first_lastname": "",
+        "secund_lastname ": "",
+        "address": "",
+        "neighborhood_id": "",
+        "image": "",
+        "last_meet": "2023-02-014"
+    },
+    "neighborhood": {
+        "neighborhood_id": 1,
+        "name": "los caracoles"
+    },
+    "client_product_purchase_invoice": {
+        "invoice_product_id": "",
+        "date": "",
+        "client_id": "",
+        "subtotal": "",
+        "discount": "",
+        "total_value": ""
+    },
+
+    "client_product_purchase_invoice_detail": {
+        "detail_id": "",
+        "client_product_purchase_id ": "",
+        "quantity": "",
+        "product_id": "",
+        "sale_value": ""
+    },
+
+    "inform": {
+
+        "id_product_inform":"",
+        "date":"2023-02-14",
+        "inform_concept_id ":"",
+        "inform_category_id ":"",
+        "details":"",
+        "subtotal":"",
+        "discount":"",
+        "total_value":""
+    },
+
+    "inform_category": {
+        "id_category":"",
+        "category_inform_name":""
+        
+    },
+
+    "inform_concept": {
+        "concept_id":"",
+        "concept_name":""
+    },
+
+    "inform_product_detail": {
+        "detail_id ":"",
+        "id_product_inform ":"",
+        "product_id": "",
+        "quantity": "",
+        "sale_value": ""
+        
+    },
+
+    "invoice_for_service_attention": {
+        "invoce_id ": "",
+        "service_id ": "",
+        "date": "2023-03-10",
+        "comments": "",
+        "additional_cost": "",
+        "discount": "",
+        "total_cost": ""
+    },
+
+    "invoice_details": {
+        "detail_id": "",
+        "invoice_service_id": "",
+        "product_id": "",
+        "quantity": "",
+        "sale_value": ""
+    },
+    
+    "product_category": {
+        "category_id ":"",
+        "name":""
+    },
+
+    "product_order": {
+        "id_order":"",
+        "id_provider":"",
+        "product_id":"",
+        "date":"",
+        "quantity":"",
+        "purchase_value":""
+    },
+
+    "Service": {
+        "service_id": 123,
+        "date": "2023-02-03",
+        "client_id": 1,
+        "description": "Realizar cambio de cartucho filtrante multi-capa y revición interna al equipo",
+        "estimate_value": 45.000
+    },
+
+    "Provider": {
+        "id_provider": 1,
+        "name": "Dennis Felipe",
+        "phone": 32425153,
+        "address": "calle #42 - 12"
+    },
+
+    "Products": {
+        "product_code": "",
+        "name": "",
+        "model": "",
+        "description": "",
+        "category_id": "",
+        "stock": "",
+        "image": ""
+    }
+]

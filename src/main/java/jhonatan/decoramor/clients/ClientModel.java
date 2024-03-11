@@ -5,10 +5,15 @@ Developed by Jhonatan Samuel Martinez Hernandez
  */
 package jhonatan.decoramor.clients;
 
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
+import jhonatan.decoramor.service.ServiceModel;
 
 /**
  *
@@ -18,8 +23,8 @@ import jakarta.persistence.Table;
 @Table(name="client")
 public class ClientModel {
     @Id
-    @Column(name="client_id")
-    private Long client_id;
+   @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
     private String dni;
     private String phone;
     private String first_name;
@@ -31,14 +36,29 @@ public class ClientModel {
     private String image; // it is the URL of the client photo profile
     private String last_meet;
 
-    // getters and setters for the class
-    public Long getClient_id() {
-        return client_id;
+    @OneToMany(mappedBy="client")
+    private List<ServiceModel> services;
+
+    public List<ServiceModel> getServices() {
+        return services;
     }
 
-    public void setClient_id(Long client_id) {
-        this.client_id = client_id;
+    public void setServices(List<ServiceModel> services) {
+        this.services = services;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
+    
+    // getters and setters for the class
+    
 
     public String getDni() {
         return dni;
