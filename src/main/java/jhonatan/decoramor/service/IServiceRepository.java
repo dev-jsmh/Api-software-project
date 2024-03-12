@@ -13,5 +13,6 @@ This interface represent the repository of services
 that a user can ask for in the business
 */
 public interface IServiceRepository extends JpaRepository<ServiceModel, Long> {
-    
+
+   
 }

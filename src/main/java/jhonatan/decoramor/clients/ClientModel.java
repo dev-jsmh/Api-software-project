@@ -12,7 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.List;
+import java.util.ArrayList;
 import jhonatan.decoramor.service.ServiceModel;
 
 /**
@@ -35,31 +35,13 @@ public class ClientModel {
     private int neighborhood_id; // and relation with the neighborhood table 
     private String image; // it is the URL of the client photo profile
     private String last_meet;
-
+    
+// relation one client to many services
     @OneToMany(mappedBy="client")
-    private List<ServiceModel> services;
-
-    public List<ServiceModel> getServices() {
-        return services;
-    }
-
-    public void setServices(List<ServiceModel> services) {
-        this.services = services;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    
+    private ArrayList<ServiceModel> purchased_services = new ArrayList<ServiceModel>();
     
     // getters and setters for the class
     
-
     public String getDni() {
         return dni;
     }
@@ -140,5 +122,28 @@ public class ClientModel {
         this.last_meet = last_meet;
     }
     
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
+    // Adds a new service to the purchased services list of the client
+    public void scheduleService(ServiceModel service) {
+        
+            this.purchased_services.add(service);
+    }
+
+    public ArrayList<ServiceModel> getPurchased_services() {
+        return purchased_services;
+    }
+
+    public void setPurchased_services(ArrayList<ServiceModel> purchased_services) {
+        this.purchased_services = purchased_services;
+    }
+    
+    
+
 }

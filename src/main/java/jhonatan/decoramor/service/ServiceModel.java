@@ -23,12 +23,14 @@ public class ServiceModel {
     private String date;
 
     private String description;
-    private String estimate_value;
-// i defined here the relation between many services to one client
+    private double estimate_value;
+    
+// I defined here the relation between many services to one client
     @ManyToOne
     @JoinColumn(name = "client_id")
     private ClientModel client;
 
+// Entity Getters and Setters
     public ClientModel getClient() {
         return client;
     }
@@ -61,11 +63,11 @@ public class ServiceModel {
         this.description = description;
     }
 
-    public String getEstimate_value() {
+    public double getEstimate_value() {
         return estimate_value;
     }
 
-    public void setEstimate_value(String estimate_value) {
+    public void setEstimate_value(double estimate_value) {
         this.estimate_value = estimate_value;
     }
 
