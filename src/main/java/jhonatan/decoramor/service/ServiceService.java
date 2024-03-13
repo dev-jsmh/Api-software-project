@@ -1,8 +1,6 @@
 package jhonatan.decoramor.service;
 
 import java.util.List;
-import java.util.Optional;
-import jhonatan.decoramor.clients.ClientModel;
 import jhonatan.decoramor.clients.IClientRepository;
 import org.springframework.stereotype.Service;
 

@@ -6,13 +6,14 @@ Developed by Jhonatan Samuel Martinez Hernandez year 2024
  */
 package jhonatan.decoramor.clients;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import jhonatan.decoramor.neighborhood.NeighborhoodModel;
 import jhonatan.decoramor.service.ServiceModel;
-import jhonatan.decoramor.service.ServiceService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,11 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientController {
 
     private final ClientService clientService;
-    private final ServiceService serviceService;
 
-    public ClientController(ClientService clientService, ServiceService serviceService) {
+    public ClientController(
+            ClientService clientService )
+    {
         this.clientService = clientService;
-        this.serviceService = serviceService;
     }
 
 // ---------------------------------------------------------------------
@@ -46,12 +47,12 @@ public class ClientController {
         }
 
     }
+
     // get all the purchased services for a specific client
     @GetMapping("/{client_id}/services")
-    public ArrayList<ServiceModel> getAllclientPurchasedServices(
-            @PathVariable("client_id") Long client_id 
-    )
-    {
+    public Set<ServiceModel> getAllclientPurchasedServices(
+            @PathVariable("client_id") Long client_id
+    ) {
 
         try {
             return clientService.clientPurchasedServices(client_id);
@@ -61,10 +62,10 @@ public class ClientController {
         }
 
     }
-    
+
 // ---------------------------------------------------------------------
 // create a new client
- @PostMapping
+    @PostMapping
     public ClientModel saveClient(@RequestBody ClientModel client) {
         try {
             return clientService.CreateClient(client);
@@ -72,19 +73,29 @@ public class ClientController {
             throw new RuntimeException("Error al crear el cliente. " + e.getMessage());
         }
     }
-    
+
 // ---------------------------------------------------------------------
 // create or save a new service for a client
-    @PostMapping("/{client_id}/services")
-    public ClientModel addServiceToClient(
+    @PutMapping("/{client_id}/schedule-service")
+    public ClientModel scheduleServiceToClient(
             @RequestBody ServiceModel newservice,
-            @PathVariable Long client_id)
-    {
+            @PathVariable Long client_id) {
         try {
-            return clientService.addServiceToClient(newservice, client_id);
-            
+            return clientService.scheduleServiceToClient(newservice, client_id);
+
         } catch (Exception e) {
             throw new RuntimeException("Error al crear el cliente. " + e.getMessage());
         }
     }
+
+// ---------------------------------------------------------------------
+// assign neighborhood to a client by its id 
+    @PutMapping("/{client_id}/assign-neighborhood/{neighborhood_id}")
+    public NeighborhoodModel assignClientToNeighborhood(
+            @PathVariable("neighborhood_id") Long neighborhood_id,
+            @PathVariable("client_id") Long client_id
+    ) {
+        return this.clientService.assignClientToNeighborhood(neighborhood_id, client_id);
+    }
+
 }

@@ -5,14 +5,17 @@ Developed by Jhonatan Samuel Martinez Hernandez
  */
 package jhonatan.decoramor.clients;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import jhonatan.decoramor.neighborhood.NeighborhoodModel;
 import jhonatan.decoramor.service.ServiceModel;
 
 /**
@@ -20,10 +23,11 @@ import jhonatan.decoramor.service.ServiceModel;
  * @author samuel
  */
 @Entity
-@Table(name="client")
+@Table(name = "client")
 public class ClientModel {
+
     @Id
-   @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dni;
     private String phone;
@@ -32,16 +36,20 @@ public class ClientModel {
     private String first_lastname;
     private String secund_lastname;
     private String address;
-    private int neighborhood_id; // and relation with the neighborhood table 
+     // and relation with the neighborhood table 
     private String image; // it is the URL of the client photo profile
     private String last_meet;
     
+  
+    @ManyToOne()
+    @JoinColumn(name = "neighborhood_id", referencedColumnName="id")
+    private NeighborhoodModel neighborhood;
+
 // relation one client to many services
-    @OneToMany(mappedBy="client")
-    private ArrayList<ServiceModel> purchased_services = new ArrayList<ServiceModel>();
-    
+    @OneToMany(mappedBy = "client")
+    private Set<ServiceModel> purchased_services = new HashSet<>();
+
     // getters and setters for the class
-    
     public String getDni() {
         return dni;
     }
@@ -98,14 +106,6 @@ public class ClientModel {
         this.address = address;
     }
 
-    public int getNeighborhood_id() {
-        return neighborhood_id;
-    }
-
-    public void setNeighborhood_id(int neighborhood_id) {
-        this.neighborhood_id = neighborhood_id;
-    }
-
     public String getImage() {
         return image;
     }
@@ -121,7 +121,7 @@ public class ClientModel {
     public void setLast_meet(String last_meet) {
         this.last_meet = last_meet;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -129,20 +129,30 @@ public class ClientModel {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     // Adds a new service to the purchased services list of the client
-    public void scheduleService(ServiceModel service) {
-        
-            this.purchased_services.add(service);
+    public void scheduleService(ServiceModel newService) {
+
+        this.purchased_services.add(newService);
     }
 
-    public ArrayList<ServiceModel> getPurchased_services() {
+    public Set<ServiceModel> getPurchased_services() {
         return purchased_services;
     }
 
-    public void setPurchased_services(ArrayList<ServiceModel> purchased_services) {
+    public void setPurchased_services(Set<ServiceModel> purchased_services) {
         this.purchased_services = purchased_services;
     }
+
+    public NeighborhoodModel getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(NeighborhoodModel neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+  
     
     
 
