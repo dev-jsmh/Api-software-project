@@ -48,21 +48,7 @@ public class ClientController {
 
     }
 
-    // get all the purchased services for a specific client
-    @GetMapping("/{client_id}/services")
-    public Set<ServiceModel> getAllclientPurchasedServices(
-            @PathVariable("client_id") Long client_id
-    ) {
-
-        try {
-            return clientService.clientPurchasedServices(client_id);
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error al consultar la lista cliente. " + e.getMessage());
-        }
-
-    }
-
+ 
 // ---------------------------------------------------------------------
 // create a new client
     @PostMapping
@@ -76,6 +62,7 @@ public class ClientController {
 
 // ---------------------------------------------------------------------
 // create or save a new service for a client
+    /*
     @PutMapping("/{client_id}/schedule-service")
     public ClientModel scheduleServiceToClient(
             @RequestBody ServiceModel newservice,
@@ -84,14 +71,16 @@ public class ClientController {
             return clientService.scheduleServiceToClient(newservice, client_id);
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al crear el cliente. " + e.getMessage());
+            throw new RuntimeException("Error al agendar servicio a el cliente. " + e.getMessage());
         }
     }
+    */
 
-// ---------------------------------------------------------------------
+// --------------- this works but doesn't print result in the server ------------
 // assign neighborhood to a client by its id 
+    
     @PutMapping("/{client_id}/assign-neighborhood/{neighborhood_id}")
-    public NeighborhoodModel assignClientToNeighborhood(
+    public ClientModel assignClientToNeighborhood(
             @PathVariable("neighborhood_id") Long neighborhood_id,
             @PathVariable("client_id") Long client_id
     ) {

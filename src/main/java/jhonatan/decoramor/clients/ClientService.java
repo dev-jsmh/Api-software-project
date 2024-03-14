@@ -31,7 +31,7 @@ public class ClientService {
         this.serviceRepository = serviceRepository;
         this.neighborhoodRepository = neighborhoodRepository;
     }
-
+// get a list of existing clients 
     public List<ClientModel> getAllClients() {
 
         try {
@@ -53,78 +53,65 @@ public class ClientService {
     // ---------------------------------------------------------------------
 // get the list of services a client has passing as argument the client id
 
-    public Set<ServiceModel> clientPurchasedServices(Long client_id) {
-        try {
-            ClientModel client = clientRepository.findById(client_id).get();
-            return client.getPurchased_services();
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error al intentar crear el nueco cliente. " + e.getMessage());
-        }
-    }
 
     // ---------------------------------------------------------------------
 // create or save a new service for a client
+    /*
     public ClientModel scheduleServiceToClient(ServiceModel serviceRequest, Long client_id) {
         try {
             // get optional of client 
             Optional<ClientModel> Opclient = clientRepository.findById(client_id);
             // get client entity from the optional 
-            ClientModel client = Opclient.get();
+            ClientModel clientTemp = Opclient.get();
 
             // create a new service
             ServiceModel newService = new ServiceModel(
                     serviceRequest.getDate(),
                     serviceRequest.getDescription(),
-                    serviceRequest.getEstimate_value()
-            );
+                    serviceRequest.getEstimate_value());
+           
+            // accessed List of services of the client
+            Set<ServiceModel> ListOfServices = clientTemp.getPurchased_services();
 
-            ServiceModel newService2 = new ServiceModel("test", "test new service createds", 40.000);
-
-            // set client to service 
-            newService.setClient(client);
-            newService2.setClient(client);
-
-            // List of services of the client
-            Set<ServiceModel> ListOfServices = client.getPurchased_services();
-            // add the new schedule service to the client's list 
+            // assing the client to the creadted service
+            newService.setClient(clientTemp);
+            
+            // add the new schedule service to the list of services the client have
             ListOfServices.add(newService);
-            ListOfServices.add(newService2);
-            client.setPurchased_services(ListOfServices);
+            
+            // set mofified list of services with the new service to the client          
+            clientTemp.setPurchased_services(ListOfServices);
+          
 
             // verify if service info came to the service layer of client
-            System.out.println("This is the client id: " + client.getId() + " and this the info for the new schedule service: ");
+            System.out.println("This is the client id: " + clientTemp.getId() + " and this the info for the new schedule service: ");
 
             System.out.println(newService.getClient().toString());
             System.out.println(newService.getDate());
             System.out.println(newService.getDescription());
-            System.out.println(newService.getEstimate_value());
+            //convert the price of the service ( Double ) to String
+            System.out.println( String.valueOf(newService.getEstimate_value())  );
 
-            return clientRepository.save(client);
+            return clientRepository.save(clientTemp);
         } catch (Exception e) {
             throw new RuntimeException("Error al agendar el servicio creado al cliente solicitado. " + e.getMessage());
         }
 
-    }
+    }*/
+    
+    
     // assign neighborhood to client
-    public NeighborhoodModel assignClientToNeighborhood(Long neighborhood_id, Long client_id) {
+    public ClientModel assignClientToNeighborhood(Long neighborhood_id, Long client_id) {
         
         // find the client 
         ClientModel clientIn = clientRepository.findById(client_id).get();
         // find the neighborhood
         NeighborhoodModel neighborhoodIn = neighborhoodRepository.findById(neighborhood_id).get();
-        // List of client that belong the neighborhood
-        Set<ClientModel> clients = neighborhoodIn.getClientList();
-        
-        // set the neighborhood to a client
         clientIn.setNeighborhood(neighborhoodIn);
-         // add the neighborhood to a client
-        clients.add(clientIn);
-        // set client list to neighborhood
-        neighborhoodIn.setClientList(clients);
        System.out.println(" estos son los clientes que pertenecen al barrio " + neighborhoodIn.toString() );
         
-       return neighborhoodRepository.save(neighborhoodIn);
+       return clientRepository.save(clientIn);
+          
     }
 
 }

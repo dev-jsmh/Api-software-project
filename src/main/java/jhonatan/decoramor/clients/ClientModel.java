@@ -46,9 +46,11 @@ public class ClientModel {
     private NeighborhoodModel neighborhood;
 
 // relation one client to many services
+    /*
     @OneToMany(mappedBy = "client")
     private Set<ServiceModel> purchased_services = new HashSet<>();
-
+*/
+    
     // getters and setters for the class
     public String getDni() {
         return dni;
@@ -131,7 +133,7 @@ public class ClientModel {
     }
 
     // Adds a new service to the purchased services list of the client
-    public void scheduleService(ServiceModel newService) {
+    /*public void scheduleService(ServiceModel newService) {
 
         this.purchased_services.add(newService);
     }
@@ -142,7 +144,7 @@ public class ClientModel {
 
     public void setPurchased_services(Set<ServiceModel> purchased_services) {
         this.purchased_services = purchased_services;
-    }
+    }*/
 
     public NeighborhoodModel getNeighborhood() {
         return neighborhood;

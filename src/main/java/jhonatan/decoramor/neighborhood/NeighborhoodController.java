@@ -1,7 +1,6 @@
 package jhonatan.decoramor.neighborhood;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Jhonatan samuel Martinez Hernandez
  */
 @RestController
-@RequestMapping("/neighborhoods")
+@RequestMapping("/Api/v1/neighborhoods")
 public class NeighborhoodController {
 
     private final NeighborhoodService neighborhoodService;
@@ -31,7 +30,7 @@ public class NeighborhoodController {
             return this.neighborhoodService.createNeighborhood(newNeighborhood);
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al crear el cliente. " + e.getMessage());
+            throw new RuntimeException("Error al agregar barrio a la lista. " + e.getMessage());
         }
     }
 
@@ -43,7 +42,7 @@ public class NeighborhoodController {
             return this.neighborhoodService.getExistingNeighborhoods();
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al crear el cliente. " + e.getMessage());
+            throw new RuntimeException("Error al optener la lista de barrios. " + e.getMessage());
         }
     }
 }

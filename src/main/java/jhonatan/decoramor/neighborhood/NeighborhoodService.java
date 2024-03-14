@@ -1,12 +1,15 @@
 package jhonatan.decoramor.neighborhood;
 
+import static java.util.Arrays.sort;
 import java.util.List;
 import jhonatan.decoramor.clients.IClientRepository;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author samuel
  */
+@Service
 public class NeighborhoodService {
 
     private final INeighborhoodRepository neighborhoodRepository;
@@ -25,7 +28,7 @@ public class NeighborhoodService {
         return this.neighborhoodRepository.save(newNeighborhood);
     }
 
-    // create method get
+    // GET list of neighborhoods method get
     public List<NeighborhoodModel> getExistingNeighborhoods() {
         return this.neighborhoodRepository.findAll();
     }

@@ -1,6 +1,8 @@
 package jhonatan.decoramor.neighborhood;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,7 +14,7 @@ import jhonatan.decoramor.clients.ClientModel;
 
 /**
  *
- * @author samuel
+ * @author Jhonatan samuel Martinez Hernandez
  */
 @Entity
 @Table(name = "neighborhood")
@@ -28,7 +30,16 @@ public class NeighborhoodModel {
     };
     
     // relation one client to many barrios --------------
-    @OneToMany(mappedBy = "neighborhood")
+    /*
+    
+    this part of the relations cause an error that doesn't allow 
+    to get the clients 
+    or 
+    to get the list of neighborhoods
+    
+    */
+    @JsonIgnore
+    @OneToMany( mappedBy = "neighborhood")
     private Set<ClientModel> clientList = new HashSet<>();
 
     // create the constructor method --------------------
@@ -60,6 +71,11 @@ public class NeighborhoodModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    //  add client to neighborhood
+    public void registerClient(ClientModel client){
+        this.clientList.add(client);
     }
 
 }
