@@ -5,6 +5,8 @@ Developed by Jhonatan Samuel Martinez Hernandez
  */
 package jhonatan.decoramor.clients;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,21 +38,26 @@ public class ClientModel {
     private String first_lastname;
     private String secund_lastname;
     private String address;
-     // and relation with the neighborhood table 
+    // and relation with the neighborhood table 
     private String image; // it is the URL of the client photo profile
     private String last_meet;
-    
-  
+
+    /* I use here the @JsonIgnoreProperties annotation as it allows 
+    me to prevent the infinite loop that i got here becuase one-to-many 
+    relationship is a bidirectional relation. it means we can obtenin 
+    informacion about the related entities by querying 
+    each one separately
+    */
+    @JsonIgnoreProperties("clientList")
     @ManyToOne()
-    @JoinColumn(name = "neighborhood_id", referencedColumnName="id")
+    @JoinColumn(name = "neighborhood_id", referencedColumnName = "id")
     private NeighborhoodModel neighborhood;
 
 // relation one client to many services
     /*
     @OneToMany(mappedBy = "client")
     private Set<ServiceModel> purchased_services = new HashSet<>();
-*/
-    
+     */
     // getters and setters for the class
     public String getDni() {
         return dni;
@@ -145,7 +152,6 @@ public class ClientModel {
     public void setPurchased_services(Set<ServiceModel> purchased_services) {
         this.purchased_services = purchased_services;
     }*/
-
     public NeighborhoodModel getNeighborhood() {
         return neighborhood;
     }
@@ -153,9 +159,5 @@ public class ClientModel {
     public void setNeighborhood(NeighborhoodModel neighborhood) {
         this.neighborhood = neighborhood;
     }
-
-  
-    
-    
 
 }

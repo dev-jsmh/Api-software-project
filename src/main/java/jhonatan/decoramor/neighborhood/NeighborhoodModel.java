@@ -1,6 +1,7 @@
 package jhonatan.decoramor.neighborhood;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +39,13 @@ public class NeighborhoodModel {
     to get the list of neighborhoods
     
     */
-    @JsonIgnore
+    /* I use here the @JsonIgnoreProperties annotation as it allows 
+    me to prevent the infinite loop that i got here becuase one-to-many 
+    relationship is a bidirectional relation. it means we can obtenin 
+    informacion about the related entities by querying 
+    each one separately
+    */
+    @JsonIgnoreProperties("neighborhood")
     @OneToMany( mappedBy = "neighborhood")
     private Set<ClientModel> clientList = new HashSet<>();
 
