@@ -1,5 +1,7 @@
 package jhonatan.decoramor.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,22 +28,23 @@ public class ServiceModel {
     private double estimate_value;
 
 // I defined here the relation between many services to one client
-   /* @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName="id")
+    @JsonIgnoreProperties("purchased_services")
+    @ManyToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private ClientModel client;
-*/
+
     // constructor for the service model
+    public ServiceModel() {
+
+    }
 
     public ServiceModel(String date, String description, double estimate_value) {
         this.date = date;
         this.description = description;
         this.estimate_value = estimate_value;
     }
-    
-    
-    
+
 // Entity Getters and Setters
-/*
     public ClientModel getClient() {
         return client;
     }
@@ -49,7 +52,6 @@ public class ServiceModel {
     public void setClient(ClientModel client) {
         this.client = client;
     }
-*/
 
     public Long getService_id() {
         return service_id;

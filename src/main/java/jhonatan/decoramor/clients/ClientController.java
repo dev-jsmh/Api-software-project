@@ -62,9 +62,9 @@ public class ClientController {
 
 // ---------------------------------------------------------------------
 // create or save a new service for a client
-    /*
+    
     @PutMapping("/{client_id}/schedule-service")
-    public ClientModel scheduleServiceToClient(
+    public ServiceModel scheduleServiceToClient(
             @RequestBody ServiceModel newservice,
             @PathVariable Long client_id) {
         try {
@@ -74,7 +74,7 @@ public class ClientController {
             throw new RuntimeException("Error al agendar servicio a el cliente. " + e.getMessage());
         }
     }
-    */
+    
 
 // --------------- this works but doesn't print result in the server ------------
 // assign neighborhood to a client by its id 

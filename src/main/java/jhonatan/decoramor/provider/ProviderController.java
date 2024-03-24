@@ -29,6 +29,6 @@ public class ProviderController {
     */
     @GetMapping // localhost:8080/providers || Get method
     public List<ProviderModel>getAll() {
-        return providerService.getAllproviders();
+        return this.providerService.getAllproviders();
     }
 }

@@ -32,6 +32,7 @@ public class ClientService {
         this.neighborhoodRepository = neighborhoodRepository;
     }
 // get a list of existing clients 
+
     public List<ClientModel> getAllClients() {
 
         try {
@@ -53,11 +54,9 @@ public class ClientService {
     // ---------------------------------------------------------------------
 // get the list of services a client has passing as argument the client id
 
-
     // ---------------------------------------------------------------------
 // create or save a new service for a client
-    /*
-    public ClientModel scheduleServiceToClient(ServiceModel serviceRequest, Long client_id) {
+    public ServiceModel scheduleServiceToClient(ServiceModel serviceRequest, Long client_id) {
         try {
             // get optional of client 
             Optional<ClientModel> Opclient = clientRepository.findById(client_id);
@@ -69,19 +68,9 @@ public class ClientService {
                     serviceRequest.getDate(),
                     serviceRequest.getDescription(),
                     serviceRequest.getEstimate_value());
-           
-            // accessed List of services of the client
-            Set<ServiceModel> ListOfServices = clientTemp.getPurchased_services();
 
             // assing the client to the creadted service
             newService.setClient(clientTemp);
-            
-            // add the new schedule service to the list of services the client have
-            ListOfServices.add(newService);
-            
-            // set mofified list of services with the new service to the client          
-            clientTemp.setPurchased_services(ListOfServices);
-          
 
             // verify if service info came to the service layer of client
             System.out.println("This is the client id: " + clientTemp.getId() + " and this the info for the new schedule service: ");
@@ -90,28 +79,27 @@ public class ClientService {
             System.out.println(newService.getDate());
             System.out.println(newService.getDescription());
             //convert the price of the service ( Double ) to String
-            System.out.println( String.valueOf(newService.getEstimate_value())  );
-
-            return clientRepository.save(clientTemp);
+            System.out.println(String.valueOf(newService.getEstimate_value()));
+            // save the new service to the data base
+            return this.serviceRepository.save(newService);
         } catch (Exception e) {
             throw new RuntimeException("Error al agendar el servicio creado al cliente solicitado. " + e.getMessage());
         }
 
-    }*/
-    
-    
+    }
+
     // assign neighborhood to client
     public ClientModel assignClientToNeighborhood(Long neighborhood_id, Long client_id) {
-        
+
         // find the client 
         ClientModel clientIn = clientRepository.findById(client_id).get();
         // find the neighborhood
         NeighborhoodModel neighborhoodIn = neighborhoodRepository.findById(neighborhood_id).get();
         clientIn.setNeighborhood(neighborhoodIn);
-       System.out.println(" estos son los clientes que pertenecen al barrio " + neighborhoodIn.toString() );
-        
-       return clientRepository.save(clientIn);
-          
+        System.out.println(" estos son los clientes que pertenecen al barrio " + neighborhoodIn.toString());
+
+        return clientRepository.save(clientIn);
+
     }
 
 }
