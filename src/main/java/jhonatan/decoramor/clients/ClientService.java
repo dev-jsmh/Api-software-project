@@ -41,8 +41,23 @@ public class ClientService {
             throw new RuntimeException("Error al buscar los clientes: " + e.getMessage());
         }
     }
-// save a new client in the database
 
+    // get a specific client by its id 
+    public ClientModel getClientById(Long client_id) {
+
+        try {
+            // find out is client exists and return an optional 
+            Optional<ClientModel> clientOpt = this.clientRepository.findById(client_id);
+            // get the client form optional 
+            ClientModel desiredClient = clientOpt.get();
+            // return client object
+            return desiredClient;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al buscar los clientes: " + e.getMessage());
+        }
+    }
+
+// save a new client in the database
     public ClientModel CreateClient(ClientModel client) {
         try {
             return clientRepository.save(client);
@@ -88,6 +103,7 @@ public class ClientService {
 
     }
 
+    // -------------------------------- method related to neighborhood --------------------------
     // assign neighborhood to client
     public ClientModel assignClientToNeighborhood(Long neighborhood_id, Long client_id) {
 

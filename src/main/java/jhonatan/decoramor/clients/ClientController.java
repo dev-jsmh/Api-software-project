@@ -1,6 +1,7 @@
 /*
 
 Developed by Jhonatan Samuel Martinez Hernandez year 2024
+Software Analyst and Developer
 
 
  */
@@ -31,8 +32,7 @@ public class ClientController {
     private final ClientService clientService;
 
     public ClientController(
-            ClientService clientService )
-    {
+            ClientService clientService) {
         this.clientService = clientService;
     }
 
@@ -50,7 +50,17 @@ public class ClientController {
 
     }
 
- 
+    // return a specific client by its id
+    @GetMapping("/{client_id}")
+    public ClientModel getClientById(
+            // Here i get the id variable from the url 
+            @PathVariable("client_id") Long client_id
+    ) {
+
+        // call the service and use the method to get the specified client from the data base
+        return this.clientService.getClientById(client_id);
+    }
+
 // ---------------------------------------------------------------------
 // create a new client
     @PostMapping
@@ -64,7 +74,6 @@ public class ClientController {
 
 // ---------------------------------------------------------------------
 // create or save a new service for a client
-    
     @PutMapping("/{client_id}/schedule-service")
     public ServiceModel scheduleServiceToClient(
             @RequestBody ServiceModel newservice,
@@ -76,11 +85,9 @@ public class ClientController {
             throw new RuntimeException("Error al agendar servicio a el cliente. " + e.getMessage());
         }
     }
-    
 
 // --------------- this works but doesn't print result in the server ------------
 // assign neighborhood to a client by its id 
-    
     @PutMapping("/{client_id}/assign-neighborhood/{neighborhood_id}")
     public ClientModel assignClientToNeighborhood(
             @PathVariable("neighborhood_id") Long neighborhood_id,
