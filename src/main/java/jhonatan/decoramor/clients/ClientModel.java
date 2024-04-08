@@ -48,12 +48,15 @@ public class ClientModel {
     informacion about the related entities by querying 
     each one separately
     */
-    @JsonIgnoreProperties("clientList")
+    //@JsonIgnoreProperties("clientList")   
     @ManyToOne()
     @JoinColumn(name = "neighborhood_id", referencedColumnName = "id")
     private NeighborhoodModel neighborhood;
 
-    
+    // I have to ignore the properti client of the service object 
+    // so i don't get the client data for each service it has bought
+    // and don't get an infite loop error when requesting clients
+    @JsonIgnoreProperties("client")
 // relation one client to many services
     @OneToMany(mappedBy = "client")
     private Set<ServiceModel> purchased_services = new HashSet<>();

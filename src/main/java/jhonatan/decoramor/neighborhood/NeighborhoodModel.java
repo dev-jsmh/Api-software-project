@@ -45,7 +45,7 @@ public class NeighborhoodModel {
     informacion about the related entities by querying 
     each one separately
     */
-    @JsonIgnoreProperties("neighborhood")
+    @JsonIgnore
     @OneToMany( mappedBy = "neighborhood")
     private Set<ClientModel> clientList = new HashSet<>();
 

@@ -28,7 +28,7 @@ public class ServiceModel {
     private double estimate_value;
 
 // I defined here the relation between many services to one client
-    @JsonIgnoreProperties("purchased_services")
+    @JsonIgnoreProperties("purchased_services")  
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private ClientModel client;

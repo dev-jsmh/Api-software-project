@@ -12,6 +12,7 @@ import java.util.Set;
 import jhonatan.decoramor.neighborhood.NeighborhoodModel;
 import jhonatan.decoramor.service.ServiceModel;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,6 +72,26 @@ public class ClientController {
             throw new RuntimeException("Error al crear el cliente. " + e.getMessage());
         }
     }
+    
+   
+// ==================== modify existing client data ==================== 
+    
+    @PutMapping("/{id}")
+    public ClientModel modifyClient(
+            @PathVariable("id") Long id,
+            @RequestBody ClientModel modClient
+    ){
+        return this.clientService.modifyClient(id, modClient);
+    }
+    
+// ========================= Delete existing client ======================== 
+    
+    @DeleteMapping("/{id}")
+    public ClientModel deleteClient(@PathVariable("id") Long id){
+        return this.clientService.deleteClient(id);
+    }
+    
+    
 
 // ---------------------------------------------------------------------
 // create or save a new service for a client

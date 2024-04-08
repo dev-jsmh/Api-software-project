@@ -14,6 +14,7 @@ import jhonatan.decoramor.neighborhood.NeighborhoodModel;
 import jhonatan.decoramor.service.IServiceRepository;
 import jhonatan.decoramor.service.ServiceModel;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
  *
@@ -31,7 +32,7 @@ public class ClientService {
         this.serviceRepository = serviceRepository;
         this.neighborhoodRepository = neighborhoodRepository;
     }
-// get a list of existing clients 
+// ======================= get a list of existing clients ======================
 
     public List<ClientModel> getAllClients() {
 
@@ -42,7 +43,7 @@ public class ClientService {
         }
     }
 
-    // get a specific client by its id 
+    // =================== get a specific client by its id =====================
     public ClientModel getClientById(Long client_id) {
 
         try {
@@ -57,7 +58,29 @@ public class ClientService {
         }
     }
 
-// save a new client in the database
+    // ================== Modify existing client data ==========================
+    public ClientModel modifyClient(Long id, ClientModel modClient) {
+
+        try {
+            // get the request client from data base 
+            ClientModel desiredClient = this.clientRepository.findById(id).get();
+            // assing to desired client properties from the modify client 
+            desiredClient.setDni(modClient.getDni());
+            desiredClient.setFirst_name(modClient.getFirst_name());
+            desiredClient.setSecund_name(modClient.getSecund_name());
+            desiredClient.setFirst_lastname(modClient.getFirst_lastname());
+            desiredClient.setSecund_lastname(modClient.getSecund_lastname());
+            desiredClient.setPhone(modClient.getPhone());
+            desiredClient.setAddress(modClient.getAddress());
+            // return result of saving the modify client data
+            return this.clientRepository.save(desiredClient);
+            
+        } catch (Exception ex) { // throws an error if present
+            throw new RuntimeException("The client could have not been modify or found. ", ex);
+        }
+    }
+
+// ======================= Save a new client in the database ===================
     public ClientModel CreateClient(ClientModel client) {
         try {
             return clientRepository.save(client);
@@ -70,7 +93,7 @@ public class ClientService {
 // get the list of services a client has passing as argument the client id
 
     // ---------------------------------------------------------------------
-// create or save a new service for a client
+//==================== create or save a new service for a client ===============
     public ServiceModel scheduleServiceToClient(ServiceModel serviceRequest, Long client_id) {
         try {
             // get optional of client 
@@ -100,10 +123,30 @@ public class ClientService {
         } catch (Exception e) {
             throw new RuntimeException("Error al agendar el servicio creado al cliente solicitado. " + e.getMessage());
         }
-
     }
+    
+    // ============================= Delete client =============================
 
-    // -------------------------------- method related to neighborhood --------------------------
+    public ClientModel deleteClient( Long id){
+        
+        try{
+        
+        // look for the client in the data base. Store in a variable
+        ClientModel desiredClient = this.clientRepository.findById(id).get();
+        // delete the client by its id
+        this.clientRepository.deleteById(id);
+        // return the previously found client
+        return desiredClient;
+        
+        // prints an error in console if present
+        }catch(Exception ex){
+        throw new RuntimeException("Error when deleting the client. ", ex); 
+        }
+        
+    }
+    
+
+    // =================== Methods related to neighborhood -=====================
     // assign neighborhood to client
     public ClientModel assignClientToNeighborhood(Long neighborhood_id, Long client_id) {
 
