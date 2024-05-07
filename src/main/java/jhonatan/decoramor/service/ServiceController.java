@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author samuel
  */
 @RestController
-@RequestMapping(value="/Api/v1/services")
+@RequestMapping(value="/api/v1/services")
 public class ServiceController {
 
     private final ServiceService serviceService;

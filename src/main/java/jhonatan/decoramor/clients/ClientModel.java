@@ -15,6 +15,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import jhonatan.decoramor.neighborhood.NeighborhoodModel;
@@ -40,7 +42,9 @@ public class ClientModel {
     private String address;
     // and relation with the neighborhood table 
     private String image; // it is the URL of the client photo profile
-    private String last_meet;
+    private LocalDate last_maintenance;
+    private LocalDate next_maintenance;
+    private Boolean hasBeenServed;
 
     /* I use here the @JsonIgnoreProperties annotation as it allows 
     me to prevent the infinite loop that i got here becuase one-to-many 
@@ -126,12 +130,27 @@ public class ClientModel {
         this.image = image;
     }
 
-    public String getLast_meet() {
-        return last_meet;
+    public LocalDate getLast_maintenance() {
+        return last_maintenance;
     }
 
-    public void setLast_meet(String last_meet) {
-        this.last_meet = last_meet;
+    public void setLast_maintenance(LocalDate last_maintenance) {
+        this.last_maintenance = last_maintenance;
+    }
+    public LocalDate getNext_maintenance() {
+        return next_maintenance;
+    }
+
+    public void setNext_maintenance(LocalDate next_maintenance) {
+        this.next_maintenance = next_maintenance;
+    }
+
+    public Boolean getHasBeenServed(){
+        return hasBeenServed;
+    }
+
+    public void setHasBeenServed( Boolean hasBeenServed){
+this.hasBeenServed = hasBeenServed;
     }
 
     public Long getId() {

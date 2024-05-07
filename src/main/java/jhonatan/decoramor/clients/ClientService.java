@@ -74,7 +74,7 @@ public class ClientService {
             desiredClient.setAddress(modClient.getAddress());
             // return result of saving the modify client data
             return this.clientRepository.save(desiredClient);
-            
+
         } catch (Exception ex) { // throws an error if present
             throw new RuntimeException("The client could have not been modify or found. ", ex);
         }
@@ -124,27 +124,26 @@ public class ClientService {
             throw new RuntimeException("Error al agendar el servicio creado al cliente solicitado. " + e.getMessage());
         }
     }
-    
-    // ============================= Delete client =============================
 
-    public ClientModel deleteClient( Long id){
-        
-        try{
-        
-        // look for the client in the data base. Store in a variable
-        ClientModel desiredClient = this.clientRepository.findById(id).get();
-        // delete the client by its id
-        this.clientRepository.deleteById(id);
-        // return the previously found client
-        return desiredClient;
-        
-        // prints an error in console if present
-        }catch(Exception ex){
-        throw new RuntimeException("Error when deleting the client. ", ex); 
+    // ============================= Delete client =============================
+    public void deleteClient(Long client_id) {
+
+        try {
+
+            // look for the client in the data base. Store in a variable
+            ClientModel desiredClient = this.clientRepository.findById(client_id).get();
+            // delete the client by its id
+            System.out.println("Client id number is: " + client_id);
+            this.clientRepository.deleteById(client_id);
+            // return the previously found client
+            System.out.println("Client deleted successufuly. ");
+
+            // prints an error in console if present
+        } catch (Exception ex) {
+            throw new RuntimeException("Deleting the client has faild. It isn't an client id number specified. " + ex.getMessage());
         }
-        
+
     }
-    
 
     // =================== Methods related to neighborhood -=====================
     // assign neighborhood to client

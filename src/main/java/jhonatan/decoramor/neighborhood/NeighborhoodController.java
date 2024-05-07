@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Jhonatan samuel Martinez Hernandez
  */
 @RestController
-@RequestMapping("/Api/v1/neighborhoods")
+@RequestMapping("/api/v1/neighborhoods")
 public class NeighborhoodController {
 
     private final NeighborhoodService neighborhoodService;

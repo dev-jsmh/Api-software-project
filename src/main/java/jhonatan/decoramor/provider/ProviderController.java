@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author samuel
  */
 @RestController
-@RequestMapping("/Api/v1/providers")// localhost:8080/providers
+@RequestMapping("/api/v1/providers")// localhost:8080/providers
 public class ProviderController {
 
     private final ProviderService providerService;

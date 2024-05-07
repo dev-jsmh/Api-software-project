@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 //@CrossOrigin( origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/Api/v1/clients")
+@RequestMapping("/api/v1/clients")
 public class ClientController {
 
     private final ClientService clientService;
@@ -85,12 +85,10 @@ public class ClientController {
     }
     
 // ========================= Delete existing client ======================== 
-    
-    @DeleteMapping("/{id}")
-    public ClientModel deleteClient(@PathVariable("id") Long id){
-        return this.clientService.deleteClient(id);
+  @DeleteMapping("/{client_id}")
+    public void deleteClient(@PathVariable Long client_id){
+        this.clientService.deleteClient(client_id);
     }
-    
     
 
 // ---------------------------------------------------------------------
