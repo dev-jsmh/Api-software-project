@@ -1,7 +1,12 @@
-
+/*
+Developed by Jhonatan Samuel Martinez Hernandez year 2024
+Software Analyst and Developer
+ */
 package jhonatan.decoramor.provider;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -15,14 +20,12 @@ import jakarta.persistence.Table;
 public class ProviderModel {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_provider;
-    
+    private String nit;
     private String name;
-    
     private String phone;
-    
     private String address;
-    
     public Long getId_provider(){
     return this.id_provider;
     }
@@ -55,6 +58,18 @@ public class ProviderModel {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getNit() {
+        return nit;
+    }
+
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
     
     
 }
+/*
+Developed by Jhonatan Samuel Martinez Hernandez year 2024
+Software Analyst and Developer
+ */
