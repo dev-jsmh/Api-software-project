@@ -1,5 +1,5 @@
 
-package jhonatan.decoramor.products;
+package jhonatan.decoramor.productCategory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

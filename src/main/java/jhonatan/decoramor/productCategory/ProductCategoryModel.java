@@ -2,7 +2,7 @@
 Developed by Jhonatan Samuel Martinez Hernandez year 2024
 Software Analyst and Developer
  */
-package jhonatan.decoramor.products;
+package jhonatan.decoramor.productCategory;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
+import jhonatan.decoramor.products.ProductModel;
 
 /**
  *
@@ -20,7 +21,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "product_category")
-class ProductCategoryModel {
+public class ProductCategoryModel {
 
     // properties
     @Id

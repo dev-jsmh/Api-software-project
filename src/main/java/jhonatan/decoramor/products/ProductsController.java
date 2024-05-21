@@ -4,6 +4,7 @@ Software Analyst and Developer
  */
 package jhonatan.decoramor.products;
 
+import jhonatan.decoramor.productCategory.ProductCategoryService;
 import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,15 +40,12 @@ public class ProductsController {
         return this.productService.createProduct(newProduct);
     }
 
-    ;
-    // ---------------------- Gets all existing product ------------------------
+//---------------------- Gets all existing product ------------------------
     @GetMapping
     public List<ProductModel> getProducts() {
         return this.productService.getProducts();
     }
 
-    ;
-    
     // ---------------------- Gets an epecified product ------------------------
     @GetMapping("/{product_code}")
     public ProductModel getProducts(
@@ -55,8 +53,6 @@ public class ProductsController {
         return this.productService.getProductById(product_code);
     }
 
-    ;
-    
         // ====================== Update Product By Id ===========================
     @PutMapping("/{product_code}")
     public ProductModel update(
@@ -66,14 +62,18 @@ public class ProductsController {
         return this.productService.updateProduct(product_code, modProduct);
     }
 
-    ;
-        // ====================== Delete Product By Id ===========================
-
+    // ====================== Delete Product By Id ===========================
     @DeleteMapping("/{product_code}")
     public ProductModel delete(
             @PathVariable("product_code") Long product_code
     ) {
         return this.productService.deleteProduct(product_code);
+    }
+
+    // ====================== assing category to Product By Id ===========================
+    @PutMapping("/{product_code}/assing-category/{category_id}")
+    public String assingCategoryToProduct(@PathVariable("category_id") Long category_id, @PathVariable("product_code") Long product_code) {
+        return this.productService.assingCategory(category_id, product_code);
     }
 
 }

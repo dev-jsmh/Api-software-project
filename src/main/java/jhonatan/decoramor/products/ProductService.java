@@ -2,17 +2,23 @@ package jhonatan.decoramor.products;
 
 import java.util.List;
 import java.util.Optional;
+import jhonatan.decoramor.productCategory.IProductCategoryRepository;
+import jhonatan.decoramor.productCategory.ProductCategoryModel;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
 
-    // create field for the service
+    // create field for the repositories
     private final IProductRepository productRepository;
+    private final IProductCategoryRepository productCategoryRepository;
 
     // create constructor and inject dependencies
-    public ProductService(IProductRepository productRepository) {
+    public ProductService(
+            IProductRepository productRepository, 
+            IProductCategoryRepository productCategoryRepository) {
         this.productRepository = productRepository;
+        this.productCategoryRepository = productCategoryRepository;
     }
 
     // -------------------------Service Methods--------------------------------
@@ -96,5 +102,16 @@ public class ProductService {
         // return the selected product before deleting it from the data base
         return product.get();
     }
+    
     // ================== Assing Category To Product By Id ===================
+   public String assingCategory(Long product_code, Long category_id){
+       
+       Optional<ProductModel> OptProduct = this.productRepository.findById(product_code);
+       Optional<ProductCategoryModel> OptCategory = this.productCategoryRepository.findById(category_id);
+       
+       
+       
+       
+       return "assining category " + category_id + " to product " + product_code;
+   }
 }

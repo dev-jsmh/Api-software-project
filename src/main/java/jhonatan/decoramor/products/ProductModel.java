@@ -4,6 +4,7 @@ Software Analyst and Developer
  */
 package jhonatan.decoramor.products;
 
+import jhonatan.decoramor.productCategory.ProductCategoryModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
