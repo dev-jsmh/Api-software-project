@@ -15,7 +15,7 @@ public class ProductService {
 
     // create constructor and inject dependencies
     public ProductService(
-            IProductRepository productRepository, 
+            IProductRepository productRepository,
             IProductCategoryRepository productCategoryRepository) {
         this.productRepository = productRepository;
         this.productCategoryRepository = productCategoryRepository;
@@ -58,7 +58,7 @@ public class ProductService {
 
         } // if something bad happends it catch the error 
         catch (Exception ex) {
-            throw new RuntimeException("Error al consultar el producto" + ex.getMessage());
+            throw new RuntimeException("Error al consultar el producto. Cause: " + ex.getMessage());
         }
     }
 
@@ -86,8 +86,7 @@ public class ProductService {
     }
 
     // ====================== Delete Product By Id ===========================
-    
-    public ProductModel deleteProduct(Long product_code){
+    public ProductModel deleteProduct(Long product_code) {
         // get the desired product from data base
         Optional<ProductModel> product = this.productRepository.findById(product_code);
 
@@ -96,22 +95,27 @@ public class ProductService {
             System.out.println("Product with id: " + product_code + " ALREADY DOES NOT EXISTE .");
 
         }
-        
+
         // If defined condition above is false then execute this operation below
         this.productRepository.deleteById(product_code);
         // return the selected product before deleting it from the data base
         return product.get();
     }
-    
+
     // ================== Assing Category To Product By Id ===================
-   public String assingCategory(Long product_code, Long category_id){
-       
-       Optional<ProductModel> OptProduct = this.productRepository.findById(product_code);
-       Optional<ProductCategoryModel> OptCategory = this.productCategoryRepository.findById(category_id);
-       
-       
-       
-       
-       return "assining category " + category_id + " to product " + product_code;
-   }
+    public ProductModel assingCategory(Long product_code, Long category_id) {
+        // look for the product in the data base
+        Optional<ProductModel> OptProduct = this.productRepository.findById(product_code);
+        // look for the category in the data base
+        Optional<ProductCategoryModel> OptCategory = this.productCategoryRepository.findById(category_id);
+        // get the object from product optional
+        ProductModel desiredProduct = OptProduct.get();
+        // get the object from category optional
+        ProductCategoryModel desiredCategory = OptCategory.get();
+        // assing the category to the product
+        desiredProduct.setCategory(desiredCategory);
+        // save the product with its new category
+        // return the result of the operation
+        return this.productRepository.save(desiredProduct);
+    }
 }

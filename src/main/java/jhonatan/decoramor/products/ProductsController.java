@@ -31,7 +31,6 @@ public class ProductsController {
         this.productService = productService;
         this.productCategoryService = productCategoryService;
     }
-
     // -------------------------- Controller methods ---------------------------
     // ------------------------ creates a new product --------------------------
     @PostMapping
@@ -39,21 +38,18 @@ public class ProductsController {
     ) {
         return this.productService.createProduct(newProduct);
     }
-
-//---------------------- Gets all existing product ------------------------
+    //---------------------- Gets all existing product ------------------------
     @GetMapping
     public List<ProductModel> getProducts() {
         return this.productService.getProducts();
     }
-
     // ---------------------- Gets an epecified product ------------------------
     @GetMapping("/{product_code}")
     public ProductModel getProducts(
-            @PathVariable("{product_code}") Long product_code) {
+            @PathVariable("product_code") Long product_code) {
         return this.productService.getProductById(product_code);
     }
-
-        // ====================== Update Product By Id ===========================
+    // ====================== Update Product By Id ===========================
     @PutMapping("/{product_code}")
     public ProductModel update(
             @PathVariable("product_code") Long product_code,
@@ -61,7 +57,6 @@ public class ProductsController {
     ) {
         return this.productService.updateProduct(product_code, modProduct);
     }
-
     // ====================== Delete Product By Id ===========================
     @DeleteMapping("/{product_code}")
     public ProductModel delete(
@@ -69,11 +64,14 @@ public class ProductsController {
     ) {
         return this.productService.deleteProduct(product_code);
     }
-
     // ====================== assing category to Product By Id ===========================
     @PutMapping("/{product_code}/assing-category/{category_id}")
-    public String assingCategoryToProduct(@PathVariable("category_id") Long category_id, @PathVariable("product_code") Long product_code) {
-        return this.productService.assingCategory(category_id, product_code);
+    public ProductModel assingCategoryToProduct( @PathVariable("product_code") Long product_code, @PathVariable("category_id") Long category_id) {
+        return this.productService.assingCategory(product_code, category_id );
     }
-
+ 
 }
+/*
+Developed by Jhonatan Samuel Martinez Hernandez year 2024
+Software Analyst and Developer
+ */
