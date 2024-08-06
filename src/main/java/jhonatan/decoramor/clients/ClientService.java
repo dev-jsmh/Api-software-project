@@ -6,6 +6,7 @@ Developed by Jhonatan Samuel Martinez Hernandez year 2024
  */
 package jhonatan.decoramor.clients;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -26,20 +27,35 @@ public class ClientService {
     private final IClientRepository clientRepository;
     private final IServiceRepository serviceRepository;
     private final INeighborhoodRepository neighborhoodRepository;
+    // dto mapper 
+    private final ClientMapper clientMapper;
 
-    public ClientService(IClientRepository clientRepository, IServiceRepository serviceRepository, INeighborhoodRepository neighborhoodRepository) {
+    public ClientService(IClientRepository clientRepository, IServiceRepository serviceRepository, INeighborhoodRepository neighborhoodRepository, ClientMapper clientMapper) {
         this.clientRepository = clientRepository;
         this.serviceRepository = serviceRepository;
         this.neighborhoodRepository = neighborhoodRepository;
+        this.clientMapper = clientMapper;
     }
 // ======================= get a list of existing clients ======================
 
-    public List<ClientModel> getAllClients() {
+    public List<ClientDto> getAllClients() {
 
+        // create a new instance of client mapper
+        ClientMapper mapper = new ClientMapper();
         try {
-            return clientRepository.findAll();
+
+            List<ClientModel> listClients = clientRepository.findAll();
+            List<ClientDto> listDto = new ArrayList();
+
+            for (int i = 0; i < listClients.size(); i++) {
+                // get client from the current iteration and convert to dto
+                ClientDto dto = mapper.toDto(listClients.get(i));
+                // add the return client dto to the list
+                listDto.add(dto);
+            }
+            return listDto;
         } catch (Exception e) {
-            throw new RuntimeException("Error al buscar los clientes: " + e.getMessage());
+            throw new RuntimeException("It was not possible to convert client entities to dto's and return a list. cause: " + e.getMessage());
         }
     }
 
@@ -66,10 +82,8 @@ public class ClientService {
             ClientModel desiredClient = this.clientRepository.findById(id).get();
             // assing to desired client properties from the modify client 
             desiredClient.setDni(modClient.getDni());
-            desiredClient.setFirst_name(modClient.getFirst_name());
-            desiredClient.setSecund_name(modClient.getSecund_name());
-            desiredClient.setFirst_lastname(modClient.getFirst_lastname());
-            desiredClient.setSecund_lastname(modClient.getSecund_lastname());
+            desiredClient.setNames(modClient.getNames());
+            desiredClient.setLastNames(modClient.getLastNames());
             desiredClient.setPhone(modClient.getPhone());
             desiredClient.setAddress(modClient.getAddress());
             // return result of saving the modify client data
@@ -106,14 +120,15 @@ public class ClientService {
                     serviceRequest.getDate(),
                     serviceRequest.getDescription(),
                     serviceRequest.getEstimate_value());
-
-            // assing the client to the creadted service
-            newService.setClient(clientTemp);
+            // -------------------------- setting the client contact data ------------------------
+            newService.setClient_id(client_id);
+            newService.setClientFullName(serviceRequest.getClientFullName());
+            newService.setPhone(serviceRequest.getPhone());
+            newService.setNeighborhood(serviceRequest.getNeighborhood());
+            newService.setAddress(serviceRequest.getAddress());
 
             // verify if service info came to the service layer of client
             System.out.println("This is the client id: " + clientTemp.getId() + " and this the info for the new schedule service: ");
-
-            System.out.println(newService.getClient().toString());
             System.out.println(newService.getDate());
             System.out.println(newService.getDescription());
             //convert the price of the service ( Double ) to String

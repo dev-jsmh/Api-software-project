@@ -1,6 +1,7 @@
 package jhonatan.decoramor.neighborhood;
 
 import java.util.List;
+import jhonatan.decoramor.dtos.NeighborhoodDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
- * @author Jhonatan samuel Martinez Hernandez
+ * Jhonatan Samuel Martinez Hernandez
+ * year 2024
+ * Analyts and Software Development
  */
 @RestController
 @RequestMapping("/api/v1/neighborhoods")
@@ -37,7 +39,7 @@ public class NeighborhoodController {
 
     // Get a list of existing neighborhoods
     @GetMapping
-    public List<NeighborhoodModel> getExistingNeighborhoods() {
+    public List<NeighborhoodDto> getExistingNeighborhoods() {
 
         try {
             return this.neighborhoodService.getExistingNeighborhoods();

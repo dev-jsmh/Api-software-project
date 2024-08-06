@@ -4,24 +4,35 @@ Software Analyst and Developer
  */
 package jhonatan.decoramor.product_order;
 
-import java.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import jhonatan.decoramor.orderDetails.OrderDetailModel;
 /*
-
 This class represents a bill for an order when purchasing products to a provider
-
 */
+@Entity
+@Table( name = "product_order")
 public class ProductOrderModel {
 
     // needed information for making an order of products to a provider
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id_order;
-    private Long id_provider;
-    private LocalTime date;
+   // private ProviderModel provider;
+    private LocalDate date;
     private int total_items;
     private double total_value;
     // this hashset representes a list of all details of a order
+    @JsonIgnoreProperties("order")
+    @OneToMany( mappedBy = "order")
     private Set<OrderDetailModel> details = new HashSet<>();
 // ================ empty constructor ================
     public ProductOrderModel(){}
@@ -35,21 +46,17 @@ public class ProductOrderModel {
         this.id_order = id_order;
     }
 
-    public Long getId_provider() {
-        return id_provider;
-    }
+    
 
-    public void setId_provider(Long id_provider) {
-        this.id_provider = id_provider;
-    }
-
-    public LocalTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
+
+   
 
     public int getTotal_items() {
         return total_items;

@@ -5,8 +5,6 @@ Developed by Jhonatan Samuel Martinez Hernandez
  */
 package jhonatan.decoramor.clients;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,15 +33,13 @@ public class ClientModel {
     private Long id;
     private String dni;
     private String phone;
-    private String first_name;
-    private String secund_name;
-    private String first_lastname;
-    private String secund_lastname;
+    private String names;
+    private String lastNames;
     private String address;
     // and relation with the neighborhood table 
     private String image; // it is the URL of the client photo profile
-    private LocalDate last_maintenance;
-    private LocalDate next_maintenance;
+    private LocalDate lastMaintenance;
+    private LocalDate nextMaintenance;
     private Boolean hasBeenServed;
 
     /* I use here the @JsonIgnoreProperties annotation as it allows 
@@ -60,11 +56,13 @@ public class ClientModel {
     // I have to ignore the properti client of the service object 
     // so i don't get the client data for each service it has bought
     // and don't get an infite loop error when requesting clients
-    @JsonIgnoreProperties("client")
+    
+    
+   /* @JsonIgnoreProperties("client")
 // relation one client to many services
     @OneToMany(mappedBy = "client")
     private Set<ServiceModel> purchased_services = new HashSet<>();
-    
+    */
     // getters and setters for the class
     public String getDni() {
         return dni;
@@ -82,36 +80,20 @@ public class ClientModel {
         this.phone = phone;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getNames() {
+        return names;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setNames(String names) {
+        this.names = names;
     }
 
-    public String getSecund_name() {
-        return secund_name;
+    public String getLastNames() {
+        return lastNames;
     }
 
-    public void setSecund_name(String secund_name) {
-        this.secund_name = secund_name;
-    }
-
-    public String getFirst_lastname() {
-        return first_lastname;
-    }
-
-    public void setFirst_lastname(String first_lastname) {
-        this.first_lastname = first_lastname;
-    }
-
-    public String getSecund_lastname() {
-        return secund_lastname;
-    }
-
-    public void setSecund_lastname(String secund_lastname) {
-        this.secund_lastname = secund_lastname;
+    public void setLastNames(String LastNames) {
+        this.lastNames = LastNames;
     }
 
     public String getAddress() {
@@ -130,19 +112,19 @@ public class ClientModel {
         this.image = image;
     }
 
-    public LocalDate getLast_maintenance() {
-        return last_maintenance;
+    public LocalDate getLastMaintenance() {
+        return lastMaintenance;
     }
 
-    public void setLast_maintenance(LocalDate last_maintenance) {
-        this.last_maintenance = last_maintenance;
+    public void setlastMaintenance(LocalDate lastMaintenance) {
+        this.lastMaintenance = lastMaintenance;
     }
-    public LocalDate getNext_maintenance() {
-        return next_maintenance;
+    public LocalDate getNextMaintenance() {
+        return nextMaintenance;
     }
 
-    public void setNext_maintenance(LocalDate next_maintenance) {
-        this.next_maintenance = next_maintenance;
+    public void setNextMaintenance(LocalDate NextMaintenance) {
+        this.nextMaintenance = NextMaintenance;
     }
 
     public Boolean getHasBeenServed(){
@@ -161,19 +143,6 @@ this.hasBeenServed = hasBeenServed;
         this.id = id;
     }
 
-    // Adds a new service to the purchased services list of the client
-    public void scheduleService(ServiceModel newService) {
-
-        this.purchased_services.add(newService);
-    }
-
-    public Set<ServiceModel> getPurchased_services() {
-        return purchased_services;
-    }
-
-    public void setPurchased_services(Set<ServiceModel> purchased_services) {
-        this.purchased_services = purchased_services;
-    }
     
     public NeighborhoodModel getNeighborhood() {
         return neighborhood;

@@ -40,7 +40,7 @@ public class ClientController {
 // ---------------------------------------------------------------------
 // Get a list of all existing clients
     @GetMapping
-    public List<ClientModel> getAll() {
+    public List<ClientDto> getAll() {
 
         try {
             return clientService.getAllClients();
