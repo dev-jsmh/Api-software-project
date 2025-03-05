@@ -1,5 +1,5 @@
 
-package jhonatan.decoramor.service;
+package jhonatan.decoramor.appointment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 This interface represent the repository of services 
 that a user can ask for in the business
 */
-public interface IServiceRepository extends JpaRepository<ServiceModel, Long> {
+public interface IAppointmentRepository extends JpaRepository<AppointmentModel, Long> {
 
    
 }

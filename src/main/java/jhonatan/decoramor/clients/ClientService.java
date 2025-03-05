@@ -12,10 +12,10 @@ import java.util.Optional;
 import java.util.Set;
 import jhonatan.decoramor.neighborhood.INeighborhoodRepository;
 import jhonatan.decoramor.neighborhood.NeighborhoodModel;
-import jhonatan.decoramor.service.IServiceRepository;
-import jhonatan.decoramor.service.ServiceModel;
+import jhonatan.decoramor.appointment.AppointmentModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import jhonatan.decoramor.appointment.IAppointmentRepository;
 
 /**
  *
@@ -25,18 +25,18 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 public class ClientService {
 
     private final IClientRepository clientRepository;
-    private final IServiceRepository serviceRepository;
+    private final IAppointmentRepository appointmentRepository;
     private final INeighborhoodRepository neighborhoodRepository;
     // dto mapper 
     private final ClientMapper clientMapper;
 
-    public ClientService(IClientRepository clientRepository, IServiceRepository serviceRepository, INeighborhoodRepository neighborhoodRepository, ClientMapper clientMapper) {
+    public ClientService(IClientRepository clientRepository, IAppointmentRepository appointmentRepository, INeighborhoodRepository neighborhoodRepository, ClientMapper clientMapper) {
         this.clientRepository = clientRepository;
-        this.serviceRepository = serviceRepository;
+        this.appointmentRepository = appointmentRepository;
         this.neighborhoodRepository = neighborhoodRepository;
         this.clientMapper = clientMapper;
     }
-// ======================= get a list of existing clients ======================
+    // ======================= get a list of existing clients ======================
 
     public List<ClientDto> getAllClients() {
 
@@ -94,49 +94,26 @@ public class ClientService {
         }
     }
 
-// ======================= Save a new client in the database ===================
+    // ======================= Save a new client in the database ===================
     public ClientModel CreateClient(ClientModel client) {
         try {
-            return clientRepository.save(client);
+
+            // get the neighborhood from data base
+            Optional<NeighborhoodModel> OptNeighborhood = neighborhoodRepository.findById(client
+                    .getNeighborhood()
+                    .getId());
+            // extract the class entity from the neighborhood optional 
+            NeighborhoodModel neighborhoodIn = OptNeighborhood.get();
+            // save the client in the data base
+            ClientModel newClient = clientRepository.save(client);
+
+            // get the result and assign a neighborhood to the client
+            newClient.setNeighborhood(neighborhoodIn);
+            // return the client with the neighborhood
+            return newClient;
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al intentar crear el nueco cliente. " + e.getMessage());
-        }
-    }
-    // ---------------------------------------------------------------------
-// get the list of services a client has passing as argument the client id
-
-    // ---------------------------------------------------------------------
-//==================== create or save a new service for a client ===============
-    public ServiceModel scheduleServiceToClient(ServiceModel serviceRequest, Long client_id) {
-        try {
-            // get optional of client 
-            Optional<ClientModel> Opclient = clientRepository.findById(client_id);
-            // get client entity from the optional 
-            ClientModel clientTemp = Opclient.get();
-
-            // create a new service
-            ServiceModel newService = new ServiceModel(
-                    serviceRequest.getDate(),
-                    serviceRequest.getDescription(),
-                    serviceRequest.getEstimate_value());
-            // -------------------------- setting the client contact data ------------------------
-            newService.setClient_id(client_id);
-            newService.setClientFullName(serviceRequest.getClientFullName());
-            newService.setPhone(serviceRequest.getPhone());
-            newService.setNeighborhood(serviceRequest.getNeighborhood());
-            newService.setAddress(serviceRequest.getAddress());
-
-            // verify if service info came to the service layer of client
-            System.out.println("This is the client id: " + clientTemp.getId() + " and this the info for the new schedule service: ");
-            System.out.println(newService.getDate());
-            System.out.println(newService.getDescription());
-            //convert the price of the service ( Double ) to String
-            System.out.println(String.valueOf(newService.getEstimate_value()));
-            // save the new service to the data base
-            return this.serviceRepository.save(newService);
-        } catch (Exception e) {
-            throw new RuntimeException("Error al agendar el servicio creado al cliente solicitado. " + e.getMessage());
+            throw new RuntimeException("Error al intentar crear el nuevo cliente. " + e.getMessage());
         }
     }
 
@@ -157,21 +134,6 @@ public class ClientService {
         } catch (Exception ex) {
             throw new RuntimeException("Deleting the client has faild. It isn't an client id number specified. " + ex.getMessage());
         }
-
-    }
-
-    // =================== Methods related to neighborhood -=====================
-    // assign neighborhood to client
-    public ClientModel assignClientToNeighborhood(Long neighborhood_id, Long client_id) {
-
-        // find the client 
-        ClientModel clientIn = clientRepository.findById(client_id).get();
-        // find the neighborhood
-        NeighborhoodModel neighborhoodIn = neighborhoodRepository.findById(neighborhood_id).get();
-        clientIn.setNeighborhood(neighborhoodIn);
-        System.out.println(" estos son los clientes que pertenecen al barrio " + neighborhoodIn.toString());
-
-        return clientRepository.save(clientIn);
 
     }
 

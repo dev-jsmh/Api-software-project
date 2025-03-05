@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import jhonatan.decoramor.neighborhood.NeighborhoodModel;
-import jhonatan.decoramor.service.ServiceModel;
+import jhonatan.decoramor.appointment.AppointmentModel;
 
 /**
  *

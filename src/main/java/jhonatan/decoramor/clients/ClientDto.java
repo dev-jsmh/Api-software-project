@@ -2,7 +2,7 @@
 package jhonatan.decoramor.clients;
 
 import java.time.LocalDate;
-import jhonatan.decoramor.dtos.NeighborhoodDto;
+import jhonatan.decoramor.neighborhood.NeighborhoodDto;
 
 /**
  * Jhonatan Samuel Martinez Hernandez
@@ -113,7 +113,7 @@ public class ClientDto {
     public void setNeighborhood(NeighborhoodDto neighborhood) {
         this.neighborhood = neighborhood;
     }
-    
+
     
 
 }

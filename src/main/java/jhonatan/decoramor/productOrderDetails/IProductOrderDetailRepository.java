@@ -2,7 +2,7 @@
 Developed by Jhonatan Samuel Martinez Hernandez year 2024
 Software Analyst and Developer
 */
-package jhonatan.decoramor.orderDetails;
+package jhonatan.decoramor.productOrderDetails;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @author samuel
  */
 @Repository
-public interface IOrderDetailRepository extends JpaRepository<OrderDetailModel, Long>{
+public interface IProductOrderDetailRepository extends JpaRepository<ProductOrderDetailModel, Long>{
     
 }
 /*

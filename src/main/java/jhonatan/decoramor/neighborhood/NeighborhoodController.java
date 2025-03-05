@@ -1,7 +1,6 @@
 package jhonatan.decoramor.neighborhood;
 
 import java.util.List;
-import jhonatan.decoramor.dtos.NeighborhoodDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

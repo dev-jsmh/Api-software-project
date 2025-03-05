@@ -13,7 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jhonatan.decoramor.productOrderDetails.ProductOrderDetailModel;
 
 @Entity
 @Table(name = "products")
@@ -22,8 +24,8 @@ public class ProductModel {
     // properties
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_code")
-    private Long productCode;
+    @Column(name = "product_id")
+    private Long productId;
     //@Column(name="name")
     private String name;
     //@Column(name="model")
@@ -34,12 +36,14 @@ public class ProductModel {
     private int stock;
     @Column(name = "image")
     private String imageUrl;
+    private double price;
 
     // relationships with other entities
     @JsonIgnoreProperties("products")
     @ManyToOne()
     @JoinColumn(name = "category_id")
     private ProductCategoryModel category;
+    
 
     // Empty Constructor
     public ProductModel() {
@@ -47,7 +51,7 @@ public class ProductModel {
 
     // Constructor with parameters
     public ProductModel(
-            Long productCode,
+            Long productId,
             String name,
             String model,
             String description,
@@ -55,7 +59,7 @@ public class ProductModel {
             int stock,
             String imageUrl
     ) {
-        this.productCode = productCode;
+        this.productId = productId;
         this.name = name;
         this.model = model;
         this.description = description;
@@ -66,13 +70,6 @@ public class ProductModel {
     }
 
     // entity methods
-    public Long getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(Long productCode) {
-        this.productCode = productCode;
-    }
 
     public String getName() {
         return name;
@@ -122,4 +119,22 @@ public class ProductModel {
         this.imageUrl = imageUrl;
     }
 
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    
+    
 }

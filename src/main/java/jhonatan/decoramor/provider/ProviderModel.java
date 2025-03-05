@@ -14,25 +14,25 @@ import jakarta.persistence.Table;
  *
  * @author samuel
  */
-
-@Table(name="provider")
+@Table(name = "provider")
 @Entity
 public class ProviderModel {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_provider;
+    private Long providerId;
     private String nit;
     private String name;
     private String phone;
     private String address;
-    public Long getId_provider(){
-    return this.id_provider;
-    }
-    
+
     // getters and setters for the class 
-    public void setId_provider( Long id_provider){
-        this.id_provider = id_provider;
+    public Long getProviderId() {
+        return this.providerId;
+    }
+
+    public void setProviderId(Long id_provider) {
+        this.providerId = id_provider;
     }
 
     public String getName() {
@@ -66,8 +66,7 @@ public class ProviderModel {
     public void setNit(String nit) {
         this.nit = nit;
     }
-    
-    
+
 }
 /*
 Developed by Jhonatan Samuel Martinez Hernandez year 2024

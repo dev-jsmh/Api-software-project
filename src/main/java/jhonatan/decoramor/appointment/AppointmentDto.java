@@ -1,5 +1,6 @@
-package jhonatan.decoramor.dtos;
+package jhonatan.decoramor.appointment;
 
+import jhonatan.decoramor.neighborhood.NeighborhoodDto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 

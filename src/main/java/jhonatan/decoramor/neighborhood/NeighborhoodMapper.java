@@ -1,8 +1,6 @@
 
 package jhonatan.decoramor.neighborhood;
 
-import jhonatan.decoramor.dtos.NeighborhoodDto;
-
 /**
  * Jhonatan Samuel Martinez Hernandez
  * year 2024

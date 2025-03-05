@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import jhonatan.decoramor.clients.IClientRepository;
-import jhonatan.decoramor.dtos.NeighborhoodDto;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,5 +1,5 @@
 
-package jhonatan.decoramor.dtos;
+package jhonatan.decoramor.neighborhood;
 
 /**
  *

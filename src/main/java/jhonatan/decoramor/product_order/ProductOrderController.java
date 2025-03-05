@@ -5,8 +5,8 @@ Software Analyst and Developer
 package jhonatan.decoramor.product_order;
 
 import java.util.List;
-import jhonatan.decoramor.orderDetails.OrderDetailModel;
-import jhonatan.decoramor.orderDetails.OrderDetailService;
+import jhonatan.decoramor.productOrderDetails.ProductOrderDetailModel;
+import jhonatan.decoramor.productOrderDetails.ProductOrderDetailService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
  * @author samuel
  */
 @RestController
-@RequestMapping("/product-orders")
+@RequestMapping("/api/v1/product-orders")
 public class ProductOrderController {
 
     private ProductOrderService productOrderService;
-    private OrderDetailService orderDetailService;
+    private ProductOrderDetailService orderDetailService;
 
     public ProductOrderController(
             ProductOrderService productOrderService,
-            OrderDetailService orderDetailService) {
+            ProductOrderDetailService orderDetailService) {
         this.productOrderService = productOrderService;
         this.orderDetailService = orderDetailService;
     }
@@ -42,12 +42,12 @@ public class ProductOrderController {
     }
 
     @GetMapping("/details")
-    public List<OrderDetailModel> getAllOrdersDetails() {
+    public List<ProductOrderDetailModel> getAllOrdersDetails() {
         return this.orderDetailService.getAll();
     }
 
     @PostMapping("/details")
-    public OrderDetailModel createNewOrderDetail(@RequestBody OrderDetailModel orderDetail) {
+    public ProductOrderDetailModel createNewOrderDetail(@RequestBody ProductOrderDetailModel orderDetail) {
         return this.orderDetailService.saveOrderDetail(orderDetail);
     }
 

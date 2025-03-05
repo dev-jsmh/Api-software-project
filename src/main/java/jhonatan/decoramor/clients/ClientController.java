@@ -10,7 +10,7 @@ package jhonatan.decoramor.clients;
 import java.util.List;
 import java.util.Set;
 import jhonatan.decoramor.neighborhood.NeighborhoodModel;
-import jhonatan.decoramor.service.ServiceModel;
+import jhonatan.decoramor.appointment.AppointmentModel;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,47 +72,20 @@ public class ClientController {
             throw new RuntimeException("Error al crear el cliente. " + e.getMessage());
         }
     }
-    
-   
+
 // ==================== modify existing client data ==================== 
-    
     @PutMapping("/{id}")
     public ClientModel modifyClient(
             @PathVariable("id") Long id,
             @RequestBody ClientModel modClient
-    ){
+    ) {
         return this.clientService.modifyClient(id, modClient);
     }
-    
+
 // ========================= Delete existing client ======================== 
-  @DeleteMapping("/{client_id}")
-    public void deleteClient(@PathVariable Long client_id){
+    @DeleteMapping("/{client_id}")
+    public void deleteClient(@PathVariable Long client_id) {
         this.clientService.deleteClient(client_id);
-    }
-    
-
-// ---------------------------------------------------------------------
-// create or save a new service for a client
-    @PutMapping("/{client_id}/schedule-service")
-    public ServiceModel scheduleServiceToClient(
-            @RequestBody ServiceModel newservice,
-            @PathVariable Long client_id) {
-        try {
-            return clientService.scheduleServiceToClient(newservice, client_id);
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error al agendar servicio a el cliente. " + e.getMessage());
-        }
-    }
-
-// --------------- this works but doesn't print result in the server ------------
-// assign neighborhood to a client by its id 
-    @PutMapping("/{client_id}/assign-neighborhood/{neighborhood_id}")
-    public ClientModel assignClientToNeighborhood(
-            @PathVariable("neighborhood_id") Long neighborhood_id,
-            @PathVariable("client_id") Long client_id
-    ) {
-        return this.clientService.assignClientToNeighborhood(neighborhood_id, client_id);
     }
 
 }

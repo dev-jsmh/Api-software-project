@@ -2,7 +2,7 @@
 Developed by Jhonatan Samuel Martinez Hernandez year 2024
 Software Analyst and Developer
  */
-package jhonatan.decoramor.orderDetails;
+package jhonatan.decoramor.productOrderDetails;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
  * @author samuel
  */
 @Service
-public class OrderDetailService {
+public class ProductOrderDetailService {
 
-    private final IOrderDetailRepository orderDetailRepository;
+    private final IProductOrderDetailRepository orderDetailRepository;
 
-    public OrderDetailService(IOrderDetailRepository orderDetailRepository) {
+    public ProductOrderDetailService(IProductOrderDetailRepository orderDetailRepository) {
         this.orderDetailRepository = orderDetailRepository;
     }
 
     // ======================== save ========================
-    public OrderDetailModel saveOrderDetail(OrderDetailModel newOrderDetail) {
+    public ProductOrderDetailModel saveOrderDetail(ProductOrderDetailModel newOrderDetail) {
         try {
             return this.orderDetailRepository.save(newOrderDetail);
 
@@ -31,7 +31,7 @@ public class OrderDetailService {
     }
 
     // ======================== Get All Order of products ========================
-    public List<OrderDetailModel> getAll() {
+    public List<ProductOrderDetailModel> getAll() {
 
         try {
             return this.orderDetailRepository.findAll();
